@@ -6,6 +6,7 @@ class MatchPagesController < ApplicationController
   before_action :find_user, only: %i(create)
 
   def create
+    binding.pry
     current_user.like @user
 
     respond_to do |format|

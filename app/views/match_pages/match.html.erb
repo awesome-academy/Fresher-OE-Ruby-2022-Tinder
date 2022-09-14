@@ -8,18 +8,18 @@
   </div>
     <div class="match--cards">
       <% @list_random_users.each do |user| %>
-        <div class="match--card">
+        <div class="match--card match-card-<%= user.id %>">
           <img src="https://placeimg.com/600/300/people">
           <h3><%= user.name %></h3>
           <h4><%= user.date_of_birth %></h4>
           <p><%= user.description %></p>
           <div class="match--buttons">
-            <%= form_for(new_relationship, url: match_pages_path, remote: true) do |f| %>
+            <%= form_for(new_relationship, url: match_pages_path, remote: true) do |f|  %>
               <div>
                 <%= hidden_field_tag :id, user.id %>
               </div>
-              <button id="nope"><i class="fa fa-remove"></i></button>
-              <%= button_tag "", id: "love" do %>
+              <button class="nope"><i class="fa fa-remove"></i></button>
+              <%= button_tag "", class: "love" do %>
                 <i class="fa fa-heart"></i>
               <% end %>
             <% end %>

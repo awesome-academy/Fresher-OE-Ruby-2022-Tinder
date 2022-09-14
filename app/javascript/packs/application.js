@@ -30,8 +30,8 @@ $(document).ready(function () {
 
   const matchContainer = document.querySelector(".match");
   const allCards = document.querySelectorAll(".match--card");
-  const nope = document.getElementById("nope");
-  const love = document.getElementById("love");
+  const nope = document.querySelectorAll("nope");
+  const love = document.querySelectorAll("love");
 
   function initCards(card, index) {
     const newCards = document.querySelectorAll(".match--card:not(.removed)");
@@ -42,7 +42,6 @@ $(document).ready(function () {
         "scale(" + (20 - index) / 20 + ") translateY(-" + 30 * index + "px)";
       card.style.opacity = (10 - index) / 10;
     });
-
     matchContainer.classList.add("loaded");
   }
 
@@ -139,11 +138,20 @@ $(document).ready(function () {
     };
   }
 
-  const nopeListener = createButtonListener(false);
-  const loveListener = createButtonListener(true);
+  // const nopeListener = createButtonListener(false);
+  // const loveListener = createButtonListener(true);
 
-  nope.addEventListener("click", nopeListener);
-  love.addEventListener("click", loveListener);
+  $('.nope').on('click', function () {
+    createButtonListener(false);
+  });
+
+  // $('.love').on('click', function () {
+  //   createButtonListener(true);
+  // });
+
+
+  // nope.addEventListener("click", nopeListener);
+  // love.addEventListener("click", loveListener);
 });
 
-global.toastr = require("toastr")
+// global.toastr = require("toastr")
