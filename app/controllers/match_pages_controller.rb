@@ -2,7 +2,7 @@ class MatchPagesController < ApplicationController
   include MatchPagesHelper
 
   before_action :authenticate_user!
-  before_action :find_user, only: %i(create)
+  before_action :find_user_by_id, only: %i(create)
 
   def index
     check_no_params = %i(gender_choice age_choice place_choice).all? do |key|

@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe RelationshipsController, type: :controller do
-
   describe "DELETE #destroy" do
     let!(:users){FactoryBot.create_list(:user, 2)}
 

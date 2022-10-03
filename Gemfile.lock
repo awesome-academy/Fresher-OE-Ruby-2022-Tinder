@@ -75,6 +75,7 @@ GEM
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
     builder (3.2.4)
+    cancancan (3.4.0)
     capybara (3.37.1)
       addressable
       matrix
@@ -392,6 +393,7 @@ DEPENDENCIES
   bcrypt (= 3.1.13)
   bootsnap (>= 1.4.4)
   bootstrap (~> 4.6.1)
+  cancancan
   capybara (>= 3.26)
   config
   devise
@@ -431,7 +433,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.7.6p219
+   ruby 3.0.2p107
 
 BUNDLED WITH
    2.3.19

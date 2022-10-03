@@ -11,11 +11,17 @@
         <ul class="list-group-flush">
           <% user.following.each do |u| %>
             <li class="list-group-item">
-              <i class="fa-regular fa-user"></i>
-              <%= " " + u.name %>
-              <% if params[:action] == "show" && user.gold? %>
-                <%= render "users/unfollow", user: u %>
-              <% end %>
+              <div class="d-flex">
+                <i class="fa-regular fa-user p-2"></i>&nbsp;
+                <div class = "p-2">
+                  <%= u.name %>
+                </div>
+                <div class="ml-auto p-2">
+                <% if params[:action] == "show" && user.gold? %>
+                  <%= render "users/unfollow", user: u %>
+                <% end %>
+                </div>
+              </div>
             </li>
           <% end %>
         </ul>

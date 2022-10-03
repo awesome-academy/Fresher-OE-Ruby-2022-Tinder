@@ -10,9 +10,9 @@ RSpec.describe User, type: :model do
   end
 
   describe "Validations" do
-    subject {FactoryBot.build(:user)}
-    let(:email) { "user@email.com"}
-    let(:phone) {"0905123123"}
+    subject{FactoryBot.build(:user)}
+    let(:email){"user@email.com"}
+    let(:phone){"0905123123"}
 
     context "when field name" do
       it "name is valid" do
@@ -55,8 +55,8 @@ RSpec.describe User, type: :model do
     end
 
     context "when field phone" do
-     it "phone is valid" do
-      is_expected.to allow_value(phone).for(:phone)
+      it "phone is valid" do
+        is_expected.to allow_value(phone).for(:phone)
       end
 
       it "phone is invalid" do
@@ -74,18 +74,24 @@ RSpec.describe User, type: :model do
   describe "Scope" do
     let(:country_one){FactoryBot.create :country, id: 1}
     let(:country_two){FactoryBot.create :country, id: 2}
-    let!(:user_one){FactoryBot.create :user, name: "user1", date_of_birth: "1998-01-20", gender: 0, country_id: country_one.id, type_of: 0, admin: true}
-    let!(:user_two){FactoryBot.create :user, name: "user2", date_of_birth: "1970-01-20", gender: 1, country_id: country_two.id, type_of: 1, admin: false}
+    let!(:user_one) do
+      FactoryBot.create :user, name: "user1", date_of_birth: "1998-01-20", gender: 0,
+    country_id: country_one.id, type_of: 0, admin: true
+    end
+    let!(:user_two) do
+      FactoryBot.create :user, name: "user2", date_of_birth: "1970-01-20", gender: 1,
+    country_id: country_two.id, type_of: 1, admin: false
+    end
 
     context "find by gender with value" do
       it "input of gender has value" do
-        expect(User.by_gender user_one.gender).to eq([user_one])
+        expect(User.by_gender(user_one.gender)).to eq([user_one])
       end
     end
 
     context "find by gender with non-value" do
       it "input of gender hasn't value" do
-        expect(User.by_gender nil).to eq([user_one, user_two])
+        expect(User.by_gender(nil)).to eq([user_one, user_two])
       end
     end
 
@@ -97,61 +103,19 @@ RSpec.describe User, type: :model do
 
     context "find by place" do
       it "input of place has value" do
-        expect(User.by_place country_one.id).to eq([user_one])
+        expect(User.by_place(country_one.id)).to eq([user_one])
       end
     end
 
     context "find by place with non-value" do
       it "input of place hasn't value" do
-        expect(User.by_place nil).to eq([user_one, user_two])
-      end
-    end
-
-    context "find by name" do
-      it "input of name has value" do
-        expect(User.by_name_like user_one.name).to eq([user_one])
-      end
-    end
-
-    context "find by name with non-value" do
-      it "input of name hasn't value" do
-        expect(User.by_name_like nil).to eq([user_one, user_two])
-      end
-    end
-
-    context "find by type" do
-      it "input of type has value" do
-        expect(User.by_type_of 0).to eq([user_one])
-      end
-    end
-
-    context "find by type with non-value" do
-      it "input of type hasn't value" do
-        expect(User.by_type_of nil).to eq([user_one, user_two])
-      end
-    end
-
-    context "find by actived" do
-      it "input of actived has value" do
-        expect(User.by_confirmed).to eq([user_one, user_two])
+        expect(User.by_place(nil)).to eq([user_one, user_two])
       end
     end
 
     context "find by actived with non-value" do
       it "input of actived hasn't value" do
         expect(User.all).to eq([user_one, user_two])
-      end
-    end
-
-    context "find by admin" do
-      it "input of admin has value" do
-        expect(User.by_admin true).to eq([user_one])
-      end
-    end
-
-    context "find by admin with non-value" do
-      it "input of admin hasn't value" do
-        expect(User.by_admin nil).to eq([user_one, user_two])
       end
     end
   end
@@ -162,7 +126,7 @@ RSpec.describe User, type: :model do
 
     describe "#like" do
       it "user like other user" do
-        expect(user.like other_user).to eq([other_user])
+        expect(user.like(other_user)).to eq([other_user])
       end
     end
 

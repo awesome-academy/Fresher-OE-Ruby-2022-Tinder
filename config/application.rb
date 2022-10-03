@@ -20,5 +20,7 @@ module Project1
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.assets.paths << Rails.root.join("app/assets/fonts")
+    config.action_dispatch.rescue_responses
+          .merge!("CanCan::AccessDenied" => :unauthorized)
   end
 end

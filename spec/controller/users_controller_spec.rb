@@ -1,6 +1,6 @@
 require "rails_helper"
 RSpec.describe UsersController, type: :controller do
-  let(:user) {FactoryBot.create :user}
+  let(:user){FactoryBot.create :user}
   describe "GET #show" do
     before do
       sign_in user

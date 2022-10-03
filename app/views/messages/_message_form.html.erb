@@ -5,5 +5,7 @@
   </div>
   <%= f.label :message, t(".message_label") %>
   <%= f.text_area :content, class: "form-control clear-chat" %>
-  <%= button_tag t(".send"), class: "btn btn-info btn-rounded float-end", id: "submit" %>
+  <% if can? :create, @message, current_user.id %>
+    <%= button_tag t(".send"), class: "btn btn-info btn-rounded float-end", id: "submit" %>
+  <% end %>
 <% end %>

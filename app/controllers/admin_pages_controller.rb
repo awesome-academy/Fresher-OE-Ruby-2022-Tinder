@@ -1,6 +1,6 @@
 class AdminPagesController < ApplicationController
-  before_action :authorize_admin
   Pagy::DEFAULT[:items] = Settings.digits.size_of_admin_page
+  authorize_resource class: :AdminPagesController
 
   def index
     @search = User.ransack(params[:q])
@@ -10,7 +10,7 @@ class AdminPagesController < ApplicationController
   def upgrade
     user = User.find_by id: params[:id]
     if user
-
+      switch_role user
       flash[:success] = t "sc_mes"
       redirect_back(fallback_location: admin_path)
     else

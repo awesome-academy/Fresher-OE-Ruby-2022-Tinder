@@ -1,7 +1,8 @@
 class MessagesController < ApplicationController
-  before_action :authenticate_user!
+  authorize_resource
   before_action :get_followed_users
   before_action :get_messages, :login_room, only: %i(show)
+
   def index; end
 
   def show; end
@@ -41,13 +42,12 @@ class MessagesController < ApplicationController
   end
 
   def get_followed_users
-    @users = Relationship.by_follower(current_user).relationship_users
+    @users = Relationship.accessible_by(current_ability).relationship_users
                          .includes(followed: :messages)
   end
 
   def get_messages
-    ids = [[current_user.id, params[:id]]]
-    @messages = Message.by_user_receive(ids).by_user_send(ids)
+    @messages = Message.accessible_by(current_ability)
     @message  = current_user.messages.build
   end
 
