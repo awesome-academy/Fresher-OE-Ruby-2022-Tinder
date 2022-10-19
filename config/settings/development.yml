@@ -1,4 +1,5 @@
 digits:
+  batch_size: 50
   size_of_match_page: 1
   size_of_admin_page: 7
 gender:

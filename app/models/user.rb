@@ -82,16 +82,24 @@ class User < ApplicationRecord
   end
 
   class << self
-    def import file
+    def import_file file
       spreadsheet = open_spreadsheet(file)
       header = spreadsheet.row(1)
       User.check_header_excel_file_and_column_of_user(header)
-      users = []
+      valid_users = []
+      invalid_users = []
       (2..spreadsheet.last_row).each do |i|
-        row = Hash[[header, spreadsheet.row(i)].transpose]
-        users << row
+        user = User.new(Hash[[header, spreadsheet.row(i)].transpose])
+        if user.valid?
+          valid_users << user
+        else
+          invalid_users << user
+        end
       end
-      User.insert_all!(users)
+      raise "error from records" unless invalid_users.empty?
+
+      User.import valid_users, validate: false,
+                               batch_size: Settings.digits.batch_size
     end
 
     def open_spreadsheet file
@@ -104,8 +112,8 @@ class User < ApplicationRecord
 
     def check_header_excel_file_and_column_of_user header
       @correct_column_of_user = %w(name date_of_birth gender facebook phone
-                            description country_id email encrypted_password
-                            confirmed_at created_at updated_at)
+                            description country_id email password
+                            confirmed_at )
       return if header == @correct_column_of_user
 
       raise I18n.t(".column_invalid")

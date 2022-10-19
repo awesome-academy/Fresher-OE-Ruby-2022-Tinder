@@ -23,7 +23,7 @@ class Admin::AdminPagesController < ApplicationController
   def import
     if params[:file]
       begin
-        User.import(params[:file])
+        User.import_file(params[:file])
         flash[:success] = t "sc_mes"
       rescue StandardError => e
         flash[:warning] = e.message
